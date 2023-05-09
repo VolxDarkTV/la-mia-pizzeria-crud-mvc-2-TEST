@@ -1,0 +1,48 @@
+﻿@model PizzaFormModel
+
+<h1>Create</h1>
+
+<div class="container">
+    <form asp-controller="Menu" asp-action="Create" method="post">
+        @Html.AntiForgeryToken()
+        <div class="mb-3">
+            <strong>Nome:</strong>
+            <input asp-for="Pizza.Nome" class="d-block w-100" />
+            <span asp-validation-for="Pizza.Nome" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>Desctizione:</strong>
+            <textarea asp-for="Pizza.Descrizione" class="d-block w-100"></textarea>
+            <span asp-validation-for="Pizza.Descrizione" class="text-danger"></span>
+        </div>
+        <div class="mb-3">
+            <strong>URL Immagine:</strong>
+            <input asp-for="Pizza.Image" class="d-block w-100" />
+        </div>
+        <div class="mb-3">
+            <strong>Price:</strong>
+            <input asp-for="Pizza.Price" class="d-block w-100" />
+            <span asp-validation-for="Pizza.Price" class="text-danger"></span>
+        </div>
+        <div>
+            <strong>Category:</strong>
+            <select asp-for="Pizza.CategoryId" rows="10" class="d-block w-100">
+                <option value=""></option>
+                @foreach (Category category in Model.Categories)
+                {
+                    @if (Model.Pizza.CategoryId == category.Id)
+                    {
+                        <option value="@category.Id" selected>@category.Nome</option>
+                    }
+                    else
+                    {
+                        <option value="@category.Id">@category.Nome</option>
+                    }
+                }
+            </select>
+        </div>
+        <div class="text-end">
+            <input type="submit" class="btn btn-small btn-info" value="Salva">
+        </div>
+    </form>
+</div>
