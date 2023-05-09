@@ -38,24 +38,23 @@ namespace la_mia_pizzeria_static.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public IActionResult Create(PizzaFormModel pizza)
+        public IActionResult Create(PizzaFormModel data)
         {
             if (!ModelState.IsValid)
             {
                 using PizzaContext context = new PizzaContext();
                 List<Category> category = context.categories.ToList();
-                pizza.Categories = category;
-                pizza.Pizza = new Pizza();
-                return View("Create", pizza);
+                data.Categories = category;
+                return View("Create", data);
             }
 
             using PizzaContext db = new PizzaContext();
             Pizza pizzaToCreate = new Pizza();
-            pizzaToCreate.Nome = pizza.Pizza.Nome;
-            pizzaToCreate.Descrizione = pizza.Pizza.Descrizione;
-            pizzaToCreate.Image = pizza.Pizza.Image;
-            pizzaToCreate.Price = pizza.Pizza.Price;
-            pizzaToCreate.CategoryId = pizza.Pizza.CategoryId;
+            pizzaToCreate.Nome = data.Pizza.Nome;
+            pizzaToCreate.Descrizione = data.Pizza.Descrizione;
+            pizzaToCreate.Image = data.Pizza.Image;
+            pizzaToCreate.Price = data.Pizza.Price;
+            pizzaToCreate.CategoryId = data.Pizza.CategoryId;
 
 
             db.pizze.Add(pizzaToCreate);

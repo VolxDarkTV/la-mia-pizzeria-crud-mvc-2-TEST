@@ -26,20 +26,7 @@
         </div>
         <div>
             <strong>Category:</strong>
-            <select asp-for="Pizza.CategoryId" rows="10" class="d-block w-100">
-                <option value=""></option>
-                @foreach (Category category in Model.Categories)
-                {
-                    @if (Model.Pizza.CategoryId == category.Id)
-                    {
-                        <option value="@category.Id" selected>@category.Nome</option>
-                    }
-                    else
-                    {
-                        <option value="@category.Id">@category.Nome</option>
-                    }
-                }
-            </select>
+            <select asp-for="Pizza.CategoryId" asp-items="@(new SelectList(Model.Categories, "Id", "Nome"))"></select>
         </div>
         <div class="text-end">
             <input type="submit" class="btn btn-small btn-info" value="Salva">
